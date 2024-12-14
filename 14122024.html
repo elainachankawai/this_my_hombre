@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Adivinar el Numero</title>
+    <link rel="icon" href="https://i.ibb.co/t3ZRKS5/mexico-round-icon-64.png" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+        }
+        .message {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Juego de Adivinar el Numero</h1>
+    <p>Ingresa un número entre 1 y 100, ¡y trata de adivinar el número elegido por el sistema!</p>
+    <input type="number" id="guess" min="1" max="100" placeholder="Ingresa un número..." />
+    <button onclick="checkGuess()">Adivinar</button>
+    
+    <div id="message" class="message"></div>
+
+    <script>
+        const targetNumber = Math.floor(Math.random() * 100) + 1;
+        let attempts = 0;
+
+        function checkGuess() {
+            const guess = parseInt(document.getElementById("guess").value);
+            const messageElement = document.getElementById("message");
+            attempts++;
+
+            if (isNaN(guess)) {
+                messageElement.textContent = "¡Por favor, ingresa un número válido!";
+                messageElement.className = "message error";
+            } else if (guess < targetNumber) {
+                messageElement.textContent = "Tu adivinanza es demasiado baja. ¡Intenta de nuevo!";
+                messageElement.className = "message error";
+            } else if (guess > targetNumber) {
+                messageElement.textContent = "Tu adivinanza es demasiado alta. ¡Intenta de nuevo!";
+                messageElement.className = "message error";
+            } else {
+                messageElement.textContent = `¡Felicidades! Adivinaste el número ${targetNumber} en ${attempts} intentos.`;
+                messageElement.className = "message success";
+            }
+        }
+    </script>
+</body>
+</html>
